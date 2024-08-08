@@ -1,10 +1,10 @@
 <section class="h-full bg-purple-500 p-32">
-    <form class="max-w-sm mx-auto p-10 bg-white rounded-3xl">
+    <form class="max-w-sm mx-auto p-10 bg-white rounded-3xl" [formGroup]="this.formCapital">
         <h1 class="text-center text-xl mb-5"><b>Inserisci i tuoi dati</b></h1>
         
         <div class="mb-5">
             <label for="capital" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Capitale di partenza</label>
-            <input type="number" id="capital" min="0" step="100"
+            <input type="number" id="capital" min="0" step="100" formControlName="start"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
                 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
                 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
@@ -12,7 +12,7 @@
 
         <div class="mb-5">
             <label for="percentage" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Percentuale rendimento atteso</label>
-            <input type="number" id="percentage" min="0" step="1"
+            <input type="number" id="percentage" min="0" step="1" formControlName="percent"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
                 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
                 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
@@ -20,17 +20,17 @@
 
         <div class="mb-5">
             <label for="year" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Anni di deposito</label>
-            <input type="number" id="year" min="0" step="1"
+            <input type="number" id="year" min="0" step="1" formControlName="years"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
                 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
                 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
         </div>
 
-        <button type="submit"
+        <button type="submit" (click)="ngSubmit()"
             class="mt-6 bg-blue-500 border border-blue-300 text-white text-lg
             rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
             dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">Calcola</button>
     </form>
 </section>
-<app-chart-revenue [value]="[]" [parameters]="null"></app-chart-revenue>
-<app-example></app-example>
+<app-chart-revenue *ngIf="this.loadComponentChild" [value]="datas" [parameters]="null"></app-chart-revenue>
+<app-example *ngIf="this.loadComponentChild"></app-example>

@@ -12,4 +12,13 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  closeMenu(){
+    document.getElementById("rightMenu")?.classList.add("hidden");
+  }
+
+  openMenu(){
+    console.log("hello")
+    document.getElementById("rightMenu")?.classList.remove("hidden");
+  }
+
 }
