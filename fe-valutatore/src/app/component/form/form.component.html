@@ -32,5 +32,5 @@
             dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">Calcola</button>
     </form>
 </section>
-<app-chart-revenue *ngIf="this.loadComponentChild" [value]="datas" [parameters]="null"></app-chart-revenue>
+<app-chart-revenue *ngIf="this.loadComponentChild" [value]="this.datas" [parameters]="this.parameters"></app-chart-revenue>
 <app-example *ngIf="this.loadComponentChild"></app-example>

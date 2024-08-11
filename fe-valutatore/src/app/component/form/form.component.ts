@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import Filter from 'src/app/model/filter';
 
 @Component({
   selector: 'app-form',
@@ -10,28 +11,31 @@ import { Router } from '@angular/router';
 export class FormComponent implements OnInit {
 
   datas: number[] = [];
+  parameters: Filter | null = null;
 
   loadComponentChild: boolean = false;
 
   constructor(private router : Router) { }
 
   ngOnInit(): void {
-    let href: string[] = this.router.url.split("/");
-    if(href.length == 3){
-      //when get old generated report
-      this.loadComponentChild = true;
-    }
+
   }
   
   formCapital: FormGroup = new FormGroup({
-    start: new FormControl(),
-    percent: new FormControl(),
-    years: new FormControl()
+    start: new FormControl<Number>(0),
+    percent: new FormControl<Number>(0),
+    years: new FormControl<Number>(0)
   })
 
   ngSubmit(){
     console.log(this.formCapital.value); 
-    this.router.navigateByUrl("/calculate/1")
+    this.parameters = new Filter(
+      this.formCapital.value.start,
+      this.formCapital.value.percent,
+      this.formCapital.value.years
+    )
+    //this.router.navigateByUrl("/calculate/1")
+    this.loadComponentChild = true;
   }
 
 }
