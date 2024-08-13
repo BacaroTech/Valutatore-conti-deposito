@@ -14,6 +14,8 @@ export class FormComponent implements OnInit {
   parameters: Filter | null = null;
 
   loadComponentChild: boolean = false;
+  isError: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private router : Router) { }
 
@@ -28,14 +30,20 @@ export class FormComponent implements OnInit {
   })
 
   ngSubmit(){
-    console.log(this.formCapital.value); 
+    this.isLoading = true;
     this.parameters = new Filter(
       this.formCapital.value.start,
       this.formCapital.value.percent,
       this.formCapital.value.years
     )
-    //this.router.navigateByUrl("/calculate/1")
-    this.loadComponentChild = true;
+    if(this.formCapital.value.start > 0 && this.formCapital.value.percent > 0 && this.formCapital.value.years > 0){
+      this.loadComponentChild = true;
+      this.isError = false;
+      this.isLoading = false;
+    }else{
+      this.isError = true;
+      this.isLoading = false;
+    }
   }
 
 }

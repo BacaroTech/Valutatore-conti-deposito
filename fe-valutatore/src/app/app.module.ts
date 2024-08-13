@@ -10,6 +10,8 @@ import { ChartRevenueComponent } from './component/chart-revenue/chart-revenue.c
 import { ExampleComponent } from './component/example/example.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AlertsComponent } from './component/alerts/alerts.component';
+import { CircleComponent } from './component/circle/circle.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormComponent,
     ChartRevenueComponent,
     ExampleComponent,
-    FooterComponent
+    FooterComponent,
+    AlertsComponent,
+    CircleComponent
   ],
   imports: [
     BrowserModule,
