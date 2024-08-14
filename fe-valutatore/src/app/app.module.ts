@@ -12,6 +12,7 @@ import { FooterComponent } from './component/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AlertsComponent } from './component/alerts/alerts.component';
 import { CircleComponent } from './component/circle/circle.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,12 +24,13 @@ import { CircleComponent } from './component/circle/circle.component';
     ExampleComponent,
     FooterComponent,
     AlertsComponent,
-    CircleComponent
+    CircleComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
