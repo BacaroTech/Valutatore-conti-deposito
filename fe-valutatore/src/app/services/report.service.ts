@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import Filter from '../model/filter';
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +12,11 @@ export class ReportService {
 
   constructor(private HTTP: HttpClient) { }
 
-  getReportById(): Observable<any> {
-    return this.HTTP.post(this.URL+"/getById", {"id": 930744963443176200});
+  getReportById(id: number): Observable<any> {
+    return this.HTTP.post(this.URL+"/getById", {"id": id});
   }
 
-  addReport(): Observable<any> {
-    return this.HTTP.post(this.URL+"/newReport", 
-    {
-      "base": 1000,
-      "percentuale": 2,
-      "anni": 3
-    });
+  addReport(filter:Filter): Observable<any> {
+    return this.HTTP.post(this.URL+"/newReport", filter);
   }
 }

@@ -1,2 +1,2 @@
 avvio be: 
-- npx tsx index.ts
+- npx tsx src/index.ts

@@ -1,11 +1,11 @@
 export default class Filter{
     base: number;
-    percent: number;
-    year: number;
+    percentuale: number;
+    anni: number;
 
     constructor(base: number, percent: number, year: number){
         this.base = base;
-        this.percent = percent;
-        this.year = year
+        this.percentuale = percent;
+        this.anni = year
     }
 }

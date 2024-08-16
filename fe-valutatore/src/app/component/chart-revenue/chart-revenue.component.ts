@@ -27,6 +27,7 @@ export class ChartRevenueComponent implements OnInit, OnChanges {
       this.buildChart();
     }else{
       this.chart.data.labels = this.buildYear();
+      this.chart.data.datasets[0].data = this.buildValue();
       this.chart.update();
     }
   }
@@ -38,8 +39,8 @@ export class ChartRevenueComponent implements OnInit, OnChanges {
         labels: this.buildYear(),
         datasets: [
           {
-            label: '# of Votes',
-            data: this.value,
+            label: 'Revenues',
+            data: this.buildValue(),
             borderWidth: 1,
           },
         ],
@@ -47,7 +48,7 @@ export class ChartRevenueComponent implements OnInit, OnChanges {
       options: {
         scales: {
           y: {
-            beginAtZero: true,
+            beginAtZero: false,
           },
         },
         responsive: true
@@ -60,11 +61,19 @@ export class ChartRevenueComponent implements OnInit, OnChanges {
     let years: string[] = [];
     years.push(String(currentYear));
 
-    for(let i = 1; i < this.parameters!.year+1; i++){
+    for(let i = 1; i < this.parameters!.anni+1; i++){
       years.push(String(currentYear+i))
     }
-
-    console.log(years)
     return years;
+  }
+
+  private buildValue(){
+    let moneyByYear: number[] = [];
+    moneyByYear.push(this.parameters?.base as number);
+    for(let i = 1; i < this.parameters!.anni+1; i++){
+      moneyByYear.push(moneyByYear[moneyByYear.length - 1] + 
+        ((moneyByYear[moneyByYear.length - 1] * (this.parameters?.percentuale as number))/100))
+    }
+    return moneyByYear;
   }
 }

@@ -17,6 +17,11 @@ export class FormComponent implements OnInit {
   loadComponentChild: boolean = false;
   isError: boolean = false;
   isLoading: boolean = false;
+  modalIsOpen: boolean = false;
+
+  linkToShare: string = "";
+
+  formCapital: FormGroup | any = null;
 
   constructor(
     private router : Router,
@@ -24,15 +29,35 @@ export class FormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.report.getReportById().subscribe(x => console.log(x))
+    this.isLoading = true;
+    let url: string[] = this.router.url.split("/")
+    if(url.length > 2){
+      this.report.getReportById(url.at(2) as any).subscribe(x => {
+        this.formCapital = new FormGroup({
+          start: new FormControl<Number>(x[0].base),
+          percent: new FormControl<Number>(x[0].percentuale),
+          years: new FormControl<Number>(x[0].anni)
+        })
+
+        this.parameters = new Filter(
+          this.formCapital.value.start,
+          this.formCapital.value.percent,
+          this.formCapital.value.years
+        )
+      })
+      this.loadComponentChild = true
+    }else{
+      this.formCapital = new FormGroup({
+        start: new FormControl<Number>(0),
+        percent: new FormControl<Number>(0),
+        years: new FormControl<Number>(0)
+      })
+    }
+    this.isError = false;
+    this.isLoading = false;
   }
   
-  formCapital: FormGroup = new FormGroup({
-    start: new FormControl<Number>(0),
-    percent: new FormControl<Number>(0),
-    years: new FormControl<Number>(0)
-  })
-
+  
   ngSubmit(){
     this.isLoading = true;
     this.parameters = new Filter(
@@ -42,12 +67,31 @@ export class FormComponent implements OnInit {
     )
     if(this.formCapital.value.start > 0 && this.formCapital.value.percent > 0 && this.formCapital.value.years > 0){
       this.loadComponentChild = true;
+      this.report.addReport({
+        base: this.formCapital.value.start,
+        percentuale: this.formCapital.value.percent,
+        anni: this.formCapital.value.years
+      }).subscribe(res => {
+        this.linkToShare = "http://localhost:4200/calculate/"+res.id
+      })
       this.isError = false;
       this.isLoading = false;
     }else{
       this.isError = true;
       this.isLoading = false;
     }
+  }
+
+  openModal(){
+    document.getElementById("modal")?.classList.remove("hidden");
+    document.getElementById("bgModal")?.classList.remove("hidden");
+    this.modalIsOpen = true;
+  }
+
+  closeModal(){
+    document.getElementById("modal")?.classList.add("hidden");
+    document.getElementById("bgModal")?.classList.add("hidden");
+    this.modalIsOpen = false;
   }
 
 }
